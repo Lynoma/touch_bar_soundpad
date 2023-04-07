@@ -1,8 +1,13 @@
-import 'package:audioplayers/audioplayers.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:cross_file/cross_file.dart';
+import 'package:desktop_drop/desktop_drop.dart';
 import 'package:flutter/material.dart';
 import 'package:touch_bar/touch_bar.dart';
+import 'package:touch_bar_soundpad/init.dart';
+import 'package:touch_bar_soundpad/services/firebase_storage_service.dart';
 
-void main() {
+void main() async {
+  await initApp();
   runApp(const MyApp());
 }
 
@@ -15,15 +20,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
       home: const MyHomePage(),
@@ -39,8 +35,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final player = AudioPlayer();
+  final audioPlayer = AssetsAudioPlayer.newPlayer();
+  String url = 'sounds/gnome.mp3'; //local mp3 file in asset folder
   List<TouchBarScrubberItem> scrubberChildren = [];
+  final firebaseStorageService = FirebaseStorageService();
+  XFile? sound;
+  XFile? icon;
+  bool isDraggingSound = false;
+  bool isDraggingIcon = false;
 
   @override
   void initState() {
@@ -48,29 +50,81 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
   }
 
-  void loadData() async {
-    var image = await TouchBarImage.loadFrom(path: 'assets/img.png');
-    scrubberChildren.add(TouchBarScrubberLabel("There"));
-    scrubberChildren.add(TouchBarScrubberLabel("General"));
-    scrubberChildren.add(TouchBarScrubberLabel("Kenobi"));
-    scrubberChildren.add(TouchBarScrubberImage(image));
-    var scrubber = TouchBarScrubber(
-      children: scrubberChildren,
-      selectedStyle: ScrubberSelectionStyle.none,
-      overlayStyle: ScrubberSelectionStyle.none,
-      mode: ScrubberMode.fixed,
-      onSelect: (childId) {
-        print("selected item with id {$childId} ");
-      },
-      onHighlight: (childId) => null,
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                DropTarget(
+                  child: Container(
+                    width: 200,
+                    height: 200,
+                    color: isDraggingSound ? Colors.blue : Colors.grey.shade300,
+                    child: const Text("Drop Sound Here"),
+                  ),
+                  onDragEntered: (details) {
+                    setState(() {
+                      isDraggingSound = true;
+                    });
+                  },
+                  onDragExited: (details) {
+                    setState(() {
+                      isDraggingSound = false;
+                    });
+                  },
+                  onDragDone: (details) {
+                    sound = details.files[0];
+                    setState(() {
+                      isDraggingSound = false;
+                    });
+                  },
+                ),
+                const SizedBox(width: 50),
+                DropTarget(
+                  child: Container(
+                    width: 200,
+                    height: 200,
+                    color: isDraggingIcon ? Colors.blue : Colors.grey.shade300,
+                    child: const Text("Drop Image Here"),
+                  ),
+                  onDragEntered: (details) {
+                    setState(() {
+                      isDraggingIcon = true;
+                    });
+                  },
+                  onDragExited: (details) {
+                    isDraggingIcon = false;
+                  },
+                  onDragDone: (details) {
+                    icon = details.files[0];
+                    setState(() {
+                      isDraggingIcon = false;
+                    });
+                  },
+                ),
+              ],
+            ),
+            FloatingActionButton(
+              onPressed: () => uploadSound(sound, icon),
+            ),
+          ],
+        ),
+      ),
     );
-    // scrubber = TouchBarScrubber(children: scrubberChildren);
+  }
 
+  void loadData() async {
+    var scrubber = await _scrubber();
     final touchBar = TouchBar(
       children: [
         TouchBarButton(
           label: "Hello",
-          onClick: _playAudio,
+          onClick: playLocal,
         ),
         scrubber,
       ],
@@ -78,13 +132,35 @@ class _MyHomePageState extends State<MyHomePage> {
     setTouchBar(touchBar);
   }
 
-  _playAudio() async {
-    print("start player");
-    await player.play('wtf.wav');
+  playLocal() async {
+    audioPlayer.open(Audio(url), autoStart: true, showNotification: true);
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold();
+  uploadSound(XFile? sound, XFile? icon) async {
+    if (sound == null || icon == null) {
+      return;
+    }
+
+    firebaseStorageService.uploadSound(sound, icon);
+  }
+
+  Future _scrubber() async {
+    var image = await TouchBarImage.loadFrom(path: 'assets/img.png');
+    scrubberChildren.add(TouchBarScrubberLabel("There"));
+    scrubberChildren.add(TouchBarScrubberLabel("General"));
+    scrubberChildren.add(TouchBarScrubberLabel("Kenobi"));
+    scrubberChildren.add(TouchBarScrubberImage(image));
+    return TouchBarScrubber(
+      children: scrubberChildren,
+      selectedStyle: ScrubberSelectionStyle.roundedBackground,
+      overlayStyle: ScrubberSelectionStyle.outlineOverlay,
+      mode: ScrubberMode.fixed,
+      shouldUnselectAfterHit: true,
+      onSelect: (childId) {
+        if (childId == -1) return;
+        playLocal();
+      },
+      onHighlight: (childId) => null,
+    );
   }
 }

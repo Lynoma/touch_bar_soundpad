@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "296427698232",
+    "project_id": "soundpad-1e6f6",
+    "storage_bucket": "soundpad-1e6f6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:296427698232:android:824f16c993299ee3904ecd",
+        "android_client_info": {
+          "package_name": "com.example.touch_bar_soundpad"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "296427698232-mldpk8jj7kgsn98hc2u363s0uveedh9c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYPmU0RDrXp5Dj0L3_jm_SdCoy9tqrpF8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "296427698232-mldpk8jj7kgsn98hc2u363s0uveedh9c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

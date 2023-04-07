@@ -1,32 +1,112 @@
 PODS:
-  - audioplayers (0.0.1):
+  - assets_audio_player (0.0.1):
     - FlutterMacOS
+  - assets_audio_player_web (0.0.1):
+    - FlutterMacOS
+  - desktop_drop (0.0.1):
+    - FlutterMacOS
+  - Firebase/CoreOnly (10.7.0):
+    - FirebaseCore (= 10.7.0)
+  - Firebase/Storage (10.7.0):
+    - Firebase/CoreOnly
+    - FirebaseStorage (~> 10.7.0)
+  - firebase_core (2.9.0):
+    - Firebase/CoreOnly (~> 10.7.0)
+    - FlutterMacOS
+  - firebase_storage (11.1.0):
+    - Firebase/CoreOnly (~> 10.7.0)
+    - Firebase/Storage (~> 10.7.0)
+    - firebase_core
+    - FlutterMacOS
+  - FirebaseAppCheckInterop (10.7.0)
+  - FirebaseAuthInterop (10.7.0)
+  - FirebaseCore (10.7.0):
+    - FirebaseCoreInternal (~> 10.0)
+    - GoogleUtilities/Environment (~> 7.8)
+    - GoogleUtilities/Logger (~> 7.8)
+  - FirebaseCoreExtension (10.7.0):
+    - FirebaseCore (~> 10.0)
+  - FirebaseCoreInternal (10.7.0):
+    - "GoogleUtilities/NSData+zlib (~> 7.8)"
+  - FirebaseStorage (10.7.0):
+    - FirebaseAppCheckInterop (~> 10.0)
+    - FirebaseAuthInterop (~> 10.0)
+    - FirebaseCore (~> 10.0)
+    - FirebaseCoreExtension (~> 10.0)
+    - GTMSessionFetcher/Core (< 4.0, >= 2.1)
   - FlutterMacOS (1.0.0)
-  - path_provider_macos (0.0.1):
+  - GoogleUtilities/Environment (7.11.1):
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleUtilities/Logger (7.11.1):
+    - GoogleUtilities/Environment
+  - "GoogleUtilities/NSData+zlib (7.11.1)"
+  - GTMSessionFetcher/Core (3.1.0)
+  - path_provider_foundation (0.0.1):
+    - Flutter
     - FlutterMacOS
+  - PromisesObjC (2.2.0)
   - touch_bar_macos (0.0.1):
     - FlutterMacOS
 
 DEPENDENCIES:
-  - audioplayers (from `Flutter/ephemeral/.symlinks/plugins/audioplayers/macos`)
+  - assets_audio_player (from `Flutter/ephemeral/.symlinks/plugins/assets_audio_player/macos`)
+  - assets_audio_player_web (from `Flutter/ephemeral/.symlinks/plugins/assets_audio_player_web/macos`)
+  - desktop_drop (from `Flutter/ephemeral/.symlinks/plugins/desktop_drop/macos`)
+  - firebase_core (from `Flutter/ephemeral/.symlinks/plugins/firebase_core/macos`)
+  - firebase_storage (from `Flutter/ephemeral/.symlinks/plugins/firebase_storage/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
-  - path_provider_macos (from `Flutter/ephemeral/.symlinks/plugins/path_provider_macos/macos`)
+  - path_provider_foundation (from `Flutter/ephemeral/.symlinks/plugins/path_provider_foundation/macos`)
   - touch_bar_macos (from `Flutter/ephemeral/.symlinks/plugins/touch_bar_macos/macos`)
 
+SPEC REPOS:
+  trunk:
+    - Firebase
+    - FirebaseAppCheckInterop
+    - FirebaseAuthInterop
+    - FirebaseCore
+    - FirebaseCoreExtension
+    - FirebaseCoreInternal
+    - FirebaseStorage
+    - GoogleUtilities
+    - GTMSessionFetcher
+    - PromisesObjC
+
 EXTERNAL SOURCES:
-  audioplayers:
-    :path: Flutter/ephemeral/.symlinks/plugins/audioplayers/macos
+  assets_audio_player:
+    :path: Flutter/ephemeral/.symlinks/plugins/assets_audio_player/macos
+  assets_audio_player_web:
+    :path: Flutter/ephemeral/.symlinks/plugins/assets_audio_player_web/macos
+  desktop_drop:
+    :path: Flutter/ephemeral/.symlinks/plugins/desktop_drop/macos
+  firebase_core:
+    :path: Flutter/ephemeral/.symlinks/plugins/firebase_core/macos
+  firebase_storage:
+    :path: Flutter/ephemeral/.symlinks/plugins/firebase_storage/macos
   FlutterMacOS:
     :path: Flutter/ephemeral
-  path_provider_macos:
-    :path: Flutter/ephemeral/.symlinks/plugins/path_provider_macos/macos
+  path_provider_foundation:
+    :path: Flutter/ephemeral/.symlinks/plugins/path_provider_foundation/macos
   touch_bar_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/touch_bar_macos/macos
 
 SPEC CHECKSUMS:
-  audioplayers: 8b48e22684b6e0d9df143b2d1bbd61dca9dab6b4
+  assets_audio_player: be2578e6f11dd4d183412e97143673c3c4cb2e8a
+  assets_audio_player_web: 917101123b6db8f73156835c0fa266c11340ff15
+  desktop_drop: 69eeff437544aa619c8db7f4481b3a65f7696898
+  Firebase: 0219acf760880eeec8ce479895bd7767466d9f81
+  firebase_core: b2f73bfbb070109d2149e257a786e3093f99a9da
+  firebase_storage: 2d688398517fa6493b0e74c53b30bc56b14e9d04
+  FirebaseAppCheckInterop: 8e907eea79958960a8bd2058e067f31e03a7914b
+  FirebaseAuthInterop: 46201190fe90ef1f581513eb0f9fa3d7820e7d6d
+  FirebaseCore: e317665b9d744727a97e623edbbed009320afdd7
+  FirebaseCoreExtension: f17247ba8c61e4d3c8d136b5e2de3cb4ac6a85b6
+  FirebaseCoreInternal: 8845798510aae74703467480f71ac613788d0696
+  FirebaseStorage: 4841efa304543e1f9e4ca116c559c7a1ea2a9d0f
   FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
-  path_provider_macos: 160cab0d5461f0c0e02995469a98f24bdb9a3f1f
+  GoogleUtilities: 9aa0ad5a7bc171f8bae016300bfcfa3fb8425749
+  GTMSessionFetcher: c9e714f7eec91a55641e2bab9f45fd83a219b882
+  path_provider_foundation: c68054786f1b4f3343858c1e1d0caaded73f0be9
+  PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
   touch_bar_macos: ab7c41504349deac8ba6bd08ff3b155cafdb4881
 
 PODFILE CHECKSUM: 353c8bcc5d5b0994e508d035b5431cfe18c1dea7
